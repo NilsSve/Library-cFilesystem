@@ -1284,6 +1284,17 @@ Class cFilesystem is a cObject
         Function_Return 0
     End_Function
 
+    // Returns the creation datetime of a file.
+    // Returns 0 if an error occured.
+    Function FileCreationDateTime String sFilename Returns DateTime
+        DateTime dtFileDateTime
+        tsSearchResult[] lsSearchResult
+        Get FileSearch sFilename DIRMODE_FILES_ONLY to lsSearchResult
+        If (SizeOfArray(lsSearchResult) > 0) Begin
+          Move lsSearchResult[0].dtCreationDateTime to dtFileDateTime
+        End 
+        Function_Return dtFileDateTime
+    End_Function
 
     // Returns the fileversion info.
     // Returns false if an error occured.
