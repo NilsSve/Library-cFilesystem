@@ -15,9 +15,18 @@ Object oMaintest is a dbView
         Set Location to 7 86
         Set Label to "File:"
         
-        Procedure Activating
+        Procedure Activating                            
+            String sPath sFileName
             Forward Send Activating
-            Set Value to "D:\FileTest\Test æøåÆØÅ.txt"
+//            Set Value to "D:\FileTest\Test æøåÆØÅ.txt" 
+            Get psProgramPath of (phoWorkspace(ghoApplication)) to sPath
+            Get psProgram of ghoApplication to sFileName 
+            #IFDEF Is$Win64
+                Append sFileName "64.exe"
+            #ELSE
+                Append sFileName ".exe"
+            #ENDIF
+            Set Value to (sPath + "\" + sFileName)
         End_Procedure
     
     End_Object
@@ -256,10 +265,10 @@ Object oMaintest is a dbView
         End_Object
 
         Object oFiledatebn is a Button
-            Set Location to 55 70
-            Set Label to "File date"
+            Set Location to 55 254
+            Set Label to "File Write date"
+            Set Size to 14 60
         
-            // fires when the button is clicked
             Procedure OnClick
                 Send DoFileDate
             End_Procedure
@@ -388,6 +397,17 @@ Object oMaintest is a dbView
             // fires when the button is clicked
             Procedure OnClick
                 Send DoFilePreservedFileName
+            End_Procedure
+        
+        End_Object
+
+        Object oFileCreationDatebn is a Button
+            Set Location to 55 178
+            Set Label to "File Create date"
+            Set Size to 14 72
+        
+            Procedure OnClick
+                Send DoFileCreateDate
             End_Procedure
         
         End_Object
@@ -758,10 +778,18 @@ Object oMaintest is a dbView
 
     Procedure DoFileDate
         String sValue
-        Date dDate
+        DateTime dtDate
         Get Value of oTestFile to sValue
-        Get FileDate of oFilesystem sValue to dDate
-        Send Info_Box (SFormat("Result: %1", dDate))
+        Get FileWriteDateTime of oFilesystem sValue to dtDate
+        Send Info_Box (SFormat("Result: %1", dtDate))
+    End_Procedure    
+
+    Procedure DoFileCreateDate
+        String sValue
+        DateTime dtDate
+        Get Value of oTestFile to sValue
+        Get FileCreationDateTime of oFilesystem sValue to dtDate
+        Send Info_Box (SFormat("Result: %1", dtDate))
     End_Procedure    
 
     Procedure DoFileVersion

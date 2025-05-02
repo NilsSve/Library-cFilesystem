@@ -10,7 +10,7 @@ End_Object
 
 Object oMain is a Panel
     Set Label To "My Project"
-    Set Location to 4 3
+    Set Location to 111 132
     Set Size to 354 652
 
     Object oClientArea is a ClientArea
