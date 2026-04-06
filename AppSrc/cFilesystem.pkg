@@ -1275,7 +1275,7 @@ Class cFilesystem is a cObject
 
     // Returns the last write date of a file.
     // Returns 0 if an error occured.
-    Function FileDate String sFilename Returns Time
+    Function FileDate String sFilename Returns DateTime
         tsSearchResult[] lsSearchResult
         Get FileSearch sFilename DIRMODE_FILES_ONLY to lsSearchResult
         If (SizeOfArray(lsSearchResult) > 0) Begin
