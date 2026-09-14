@@ -1,8 +1,6 @@
 # Define the workspace as a DataFlex language project.
 # Once DataFlex lands in github-linguist (PR #7479) these mappings switch
 # from "suppress misdetection" to "count as DataFlex" automatically.
-# NOTE: deliberately no text/eol attributes here; adding eol pins would
-# renormalize existing files.
 *.src linguist-language=DataFlex
 *.pkg linguist-language=DataFlex
 *.vw linguist-language=DataFlex
@@ -19,3 +17,38 @@
 # Workspace config is INI-format data; without this, *.ws is detected as
 # "Witcher Script" (a game-modding language).
 *.ws linguist-language=INI
+
+# DataFlex source is written by the Studio with CRLF; the repository stores it
+# with LF. Pinning that here keeps a Studio save from showing as a whole-file
+# diff. This renormalizes nothing: every text blob in this repository was
+# already LF when the pin was added, measured byte by byte. The .sws files are
+# deliberately left unpinned - Filesystem26.0.sws is CRLF in the repository and
+# pinning it would be a real content change.
+*.src text eol=crlf
+*.pkg text eol=crlf
+*.vw  text eol=crlf
+*.dg  text eol=crlf
+*.sl  text eol=crlf
+*.bp  text eol=crlf
+*.wo  text eol=crlf
+*.inc text eol=crlf
+*.rv  text eol=crlf
+*.dd  text eol=crlf
+*.frm text eol=crlf
+
+# Windows helper scripts must stay CRLF so cmd.exe runs them correctly
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# The rest of the repository's text files had drifted to CRLF on disk while the
+# repository held LF, so every one of them reported as wholly modified. Pinning
+# them ends that too, and changes no content: these blobs are LF already.
+*.cfg      text eol=crlf
+*.fd       text eol=crlf
+*.xml      text eol=crlf
+*.tag      text eol=crlf
+*.ws       text eol=crlf
+*.md       text eol=crlf
+*.manifest text eol=crlf
+.gitignore text eol=crlf
+LICENSE    text eol=crlf
