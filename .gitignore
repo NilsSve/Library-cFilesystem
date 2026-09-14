@@ -3,4 +3,5 @@ Cache.dat
 Thumbs.db
 *.pdb
 *.log
-*.tmpLoginEncryptionKey.inc
+*.tmp
+LoginEncryptionKey.inc
